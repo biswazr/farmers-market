@@ -1,6 +1,11 @@
 # farmers-market
 Language :NodeJS
 
+### Get the code
+```
+git clone https://github.com/biswazr/farmers-market.git
+cd farmers-market
+```
 ### command to build container  (Assuming docker already installed on Hostmachine and configured )
 ```
 sudo docker build -t biswa/farmer-app .
