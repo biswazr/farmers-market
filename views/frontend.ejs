@@ -20,8 +20,13 @@
             padding-bottom: 15px;
         }
         
+        #basket {
+            width: 100%;
+            display: block;
+        }
+        
         table td {
-            border: 1px solid #0000003b;
+            border: 1px solid #00000008;
         }
         
         table tr:last-child {
@@ -53,7 +58,7 @@
             <label for="MK1">Milk</label>
             <input type="button" name="MK1" id="MK1" value="Add" onclick="cliked(this)">
         </div>
-        <div class="itemlist">Basket : <input width="200px" type="text" name="Basket" id="basket" value=""></div>
+        <div class="itemlist">Basket : <input width="100%" type="text" name="Basket" id="basket" value="" readonly></div>
         <div class="itemlist"><input type="submit" name="submit" id="submit" value="Submit">
             <input type="reset" id="submit" value="Reset" onclick="rsparrange()"></div>
     </form>
@@ -64,7 +69,9 @@
     </h2>
     <table id="register">
         <tr>
+            <th>Sl No. </th>
             <th>Item Name</th>
+            <th>Item Code</th>
             <th>Offer</th>
             <th>Price</th>
         </tr>
@@ -117,8 +124,8 @@
                         console.log(data[i])
 
                         var object = Object.keys(data[i])
-
-                        var feed = '<tr><td>' + object[0] + ' </td> <td> </td>  <td  style="text-align:right">' + data[i][object]["price"] + '</td></tr>'
+                        var tempnum = i + 1
+                        var feed = '<tr><td>' + tempnum + ' </td><td>' + data[i][object]["Name"] + ' </td><td>' + object[0] + ' </td> <td> </td>  <td  style="text-align:right">' + data[i][object]["price"] + '</td></tr>'
                         $('#register tr:last').after(feed);
 
                         if (data[i][object]["offer"] == undefined || data[i][object]["offer"].length == 0) {
@@ -127,7 +134,7 @@
 
 
                             for (var countoffer = 0; countoffer < data[i][object]["offer"].length; countoffer++) {
-                                var feed = '<tr><td> </td> <td>' + data[i][object]["offer"][countoffer] + ' </td>  <td  style="text-align:right" >' + data[i][object]["offerdeduction"][countoffer] + '</td></tr>'
+                                var feed = '<tr><td> </td><td> </td><td> </td> <td style="font-size: 0.6em">' + data[i][object]["offer"][countoffer] + ' </td>  <td  style="text-align:right" >' + data[i][object]["offerdeduction"][countoffer] + '</td></tr>'
                                 console.log("applyingofferdeduction", data[i][object]["offerdeduction"][countoffer])
                                 $('#register tr:last').after(feed);
 
@@ -139,7 +146,7 @@
                     }
 
                 }
-                var feed = '<tr><td>Total </td> <td></td>  <td  style="text-align:right">' + data[data.length - 1]["finalPrice"] + '</td></tr>'
+                var feed = '<tr><td>Total </td><td> </td><td> </td> <td></td>  <td  style="text-align:right">' + data[data.length - 1]["finalPrice"] + '</td></tr>'
                 $('#register tr:last').after(feed);
             }
 

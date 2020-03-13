@@ -24,6 +24,7 @@ module.exports = function(input) {
             switch (element) {
                 case "AP1":
                     apcount++
+                    tempobj[element]["Name"] = "Apple Bag"
                     if (apcount == 3) {
 
 
@@ -56,7 +57,9 @@ module.exports = function(input) {
 
                     break;
                 case "CF1":
+
                     cfcount++
+                    tempobj[element]["Name"] = "Coffee"
                     if (cfcount % 2 == 0) {
                         tempobj[element]["offer"] = ["BOGO"]
                         tempobj[element]["offerdeduction"].push(-Math.abs(invetoryobj[element]["price"]))
@@ -74,15 +77,16 @@ module.exports = function(input) {
                     break;
                 case "CH1":
                     chcount++
-
+                    tempobj[element]["Name"] = "Chai Box"
                     tempobj[element]["offer"] = []
                     tempobj[element]["price"] = invetoryobj[element]["price"]
                     tempobj[element]["totalprice"] = invetoryobj[element]["price"]
 
                     break;
                 case "OM1":
-                    omcount++
 
+                    omcount++
+                    tempobj[element]["Name"] = "Oatmeals"
                     tempobj[element]["offer"] = []
                     tempobj[element]["price"] = invetoryobj[element]["price"]
                     tempobj[element]["totalprice"] = invetoryobj[element]["price"]
@@ -90,6 +94,7 @@ module.exports = function(input) {
                     break;
                 case "MK1":
                     mkcount++
+                    tempobj[element]["Name"] = "Milk"
                     tempobj[element]["offer"] = []
                     tempobj[element]["price"] = invetoryobj[element]["price"]
                     tempobj[element]["totalprice"] = invetoryobj[element]["price"]
