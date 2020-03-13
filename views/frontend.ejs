@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        <%= title %>
+    </title>
+    <style>
+        table {
+            margin: 0 auto;
+            width: 80%;
+            text-align: center;
+            border-collapse: collapse;
+        }
+        
+        .itemlist {
+            width: 100%;
+            padding-bottom: 15px;
+        }
+        
+        table td {
+            border: 1px solid #0000003b;
+        }
+        
+        table tr:last-child {
+            background-color: lightslategray
+        }
+        
+        table th {
+            background-color: dimgrey;
+        }
+    </style>
+    <script src="jquery.min.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <h1>
+        <%= title %>
+
+    </h1>
+    <form action="/" method="post" id="basketform">
+
+        <div class="itemlist"><label for="CH1">Chai</label>
+            <input type="button" name="CH1" id="CH1" value="Add" onclick="cliked(this)">
+            <label for="AP1">Apple</label>
+            <input type="button" name="AP1" id="AP1" value="Add" onclick="cliked(this)">
+            <label for="CF1">Coffee</label>
+            <input type="button" name="CF1" id="CF1" value="Add" onclick="cliked(this)">
+            <label for="OM1">Oatmeals</label>
+            <input type="button" name="OM1" id="OM1" value="Add" onclick="cliked(this)">
+            <label for="MK1">Milk</label>
+            <input type="button" name="MK1" id="MK1" value="Add" onclick="cliked(this)">
+        </div>
+        <div class="itemlist">Basket : <input width="200px" type="text" name="Basket" id="basket" value=""></div>
+        <div class="itemlist"><input type="submit" name="submit" id="submit" value="Submit">
+            <input type="reset" id="submit" value="Reset" onclick="rsparrange()"></div>
+    </form>
+
+
+    <h2>
+        Cart
+    </h2>
+    <table id="register">
+        <tr>
+            <th>Item Name</th>
+            <th>Offer</th>
+            <th>Price</th>
+        </tr>
+
+
+    </table>
+    <script>
+        function cliked(btn) {
+
+
+            if ($("#basket").val() == "") {
+                $("#basket").val(btn.id)
+
+            } else {
+                $("#basket").val($("#basket").val() + "," + btn.id)
+
+            }
+
+
+
+
+        }
+
+        $("#basketform").submit(function(e) {
+            console.log($("#basket").val())
+            e.preventDefault()
+            $.ajax({
+                url: '/',
+                type: 'POST',
+                data: $("#basketform").serialize()
+            }).done(function(res) {
+                // Receive the successful server response
+                console.log(res.data);
+                rsparrange(res.data)
+            })
+        });
+
+
+        function rsparrange(data) {
+
+            console.log("--++-")
+            $('#register ').find('tr:not(:first)').remove();
+            if (data == undefined || data.length == 0) {
+
+            } else {
+                console.log(data.length)
+                for (var i = 0; i <= data.length - 1; i++) {
+
+                    if (i != data.length - 1) {
+                        console.log(data[i])
+
+                        var object = Object.keys(data[i])
+
+                        var feed = '<tr><td>' + object[0] + ' </td> <td> </td>  <td  style="text-align:right">' + data[i][object]["price"] + '</td></tr>'
+                        $('#register tr:last').after(feed);
+
+                        if (data[i][object]["offer"] == undefined || data[i][object]["offer"].length == 0) {
+                            console.log("none")
+                        } else {
+
+
+                            for (var countoffer = 0; countoffer < data[i][object]["offer"].length; countoffer++) {
+                                var feed = '<tr><td> </td> <td>' + data[i][object]["offer"][countoffer] + ' </td>  <td  style="text-align:right" >' + data[i][object]["offerdeduction"][countoffer] + '</td></tr>'
+                                console.log("applyingofferdeduction", data[i][object]["offerdeduction"][countoffer])
+                                $('#register tr:last').after(feed);
+
+                            };
+
+                        }
+
+
+                    }
+
+                }
+                var feed = '<tr><td>Total </td> <td></td>  <td  style="text-align:right">' + data[data.length - 1]["finalPrice"] + '</td></tr>'
+                $('#register tr:last').after(feed);
+            }
+
+        }
+    </script>
+</body>
+
+</html>
