@@ -20,7 +20,7 @@ sudo docker run -p 3000:3000 -d --name farmer-app  biswa/farmer-app
 ```
 ### Use Application
 ```
-typer you host ip with 3000 port  you should see the form on a webpage 
+type your host ip with 3000 port  you should see the form on a webpage 
 ```
 ### Currently live at :
 *http://107.21.84.150:3000/*
